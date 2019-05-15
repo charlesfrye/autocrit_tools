@@ -1,0 +1,16 @@
+results/
+├── gaussian_16_linspace
+│   ├── data.npz
+│   └── test_network
+│       ├── network.json
+│       └── test_optimizer
+│           ├── optimizer.json
+│           ├── test_finder
+│           │   ├── experiment.json
+│           │   ├── finder.json
+│           │   └── outputs
+│           │       └── 0000.npz
+│           └── trajectories
+│               └── 0000.npz
+└── layer_specs
+    └── 16_4_fcae.json
