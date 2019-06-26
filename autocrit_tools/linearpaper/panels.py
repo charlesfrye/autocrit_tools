@@ -16,7 +16,7 @@ def make_trajectory_panel(cp_df, failed_cp_df, ax=None,
                           title=None):
 
     if ax is None:
-        f, ax = plt.figure(figsize=(6, 6))
+        f, ax = plt.subplots(figsize=(6, 6))
 
     plot_trajectories(cp_df, "squared_grad_norms", ax=ax,
                       plot_func_kwargs={"color": "k", "alpha": 0.45})
@@ -53,7 +53,7 @@ def make_loss_index_panel(cp_df, analytical_cp_df, ax=None,
                           include_legend=False):
 
     if ax is None:
-        f, ax = plt.figure(figsize=(6, 6))
+        f, ax = plt.subplots(figsize=(6, 6))
 
     ax.scatter(analytical_cp_df.morse_index, analytical_cp_df.cost,
                color=ANALYTICAL_CPS_COLOR, alpha=0.65, label="analytical")
