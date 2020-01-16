@@ -20,6 +20,7 @@ DEFAULT_LOG_KWARGS = {"track_theta": True,
 DEFAULT_ALPHA = autocrit.defaults.DEFAULT_ALPHA
 DEFAULT_BETA = autocrit.defaults.DEFAULT_BETA
 DEFAULT_RHO = autocrit.defaults.DEFAULT_RHO
+DEFAULT_RHO_PURE = autocrit.defaults.DEFAULT_RHO_PURE
 DEFAULT_GAMMA = autocrit.defaults.DEFAULT_GAMMA
 
 DEFAULT_RTOL = autocrit.defaults.DEFAULT_RTOL
@@ -62,7 +63,7 @@ def make_experiment_dict(args, paths, ID):
     trajectory_path = paths.optimizer_traj_dir / (args.trajectory_ID + ".npz")
 
     experiment_dict = {"optimizer_path": str(optimizer_path),
-                       "ID": ID,
+                       "ID": IDp
                        "trajectory_path": str(trajectory_path),
                        "init_theta": args.init_theta,
                        "theta_perturb": args.theta_perturb,
@@ -117,7 +118,9 @@ def construct_gammas(args):
 def extract_mr_kwargs(args):
     mr_kwargs = {"alpha": args.alpha,
                  "beta": args.beta,
-                 "rho": args.rho}
+                 "rho": args.rho,
+                 "check_pure": args.check_pure,
+                 "rho_pure": args.rho_pure}
     mr_kwargs.update(extract_minresqlp_kwargs(args))
     return mr_kwargs
 
@@ -211,6 +214,17 @@ def setup_parser():
                         help="used in armijo check in all BTLS. " +
                         "hyperparameter for strictness of sufficient decrease condition. " +
                         "default is {}".format(DEFAULT_RHO))
+    parser.add_argument("--check_pure",
+                        action="store_const", dest="check_pure",
+                        const=True, default=False,
+                        help="used in armijo check in Newton MR. " +
+                        "if True, always check whether a 'pure' Newton step " +
+                        "of step size 1 is acceptable. see --rho_pure")
+    parser.add_argument("--rho_pure", type=float, default=DEFAULT_RHO_PURE,
+                        help="used in armijo check in Newton MR. " +
+                        "hyperparameter for strictness of sufficient decrease condition " +
+                        "for steps of size 1. only used if --check_pure provided." +
+                        "default is {}".format(DEFAULT_RHO_PURE))
 
     # gnm
     parser.add_argument("--minimizer", type=str, default=DEFAULT_GNM_MINIMIZER,
