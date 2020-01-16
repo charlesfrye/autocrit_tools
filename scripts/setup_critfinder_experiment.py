@@ -63,7 +63,7 @@ def make_experiment_dict(args, paths, ID):
     trajectory_path = paths.optimizer_traj_dir / (args.trajectory_ID + ".npz")
 
     experiment_dict = {"optimizer_path": str(optimizer_path),
-                       "ID": IDp
+                       "ID": ID,
                        "trajectory_path": str(trajectory_path),
                        "init_theta": args.init_theta,
                        "theta_perturb": args.theta_perturb,
