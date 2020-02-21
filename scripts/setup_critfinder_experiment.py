@@ -120,7 +120,8 @@ def extract_mr_kwargs(args):
                  "beta": args.beta,
                  "rho": args.rho,
                  "check_pure": args.check_pure,
-                 "rho_pure": args.rho_pure}
+                 "rho_pure": args.rho_pure,
+                 "log_mrqlp": True}
     mr_kwargs.update(extract_minresqlp_kwargs(args))
     return mr_kwargs
 
