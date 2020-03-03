@@ -126,6 +126,12 @@ def construct_cp_df(critfinder_row):
                 row_dictionary["squared_grad_norms"] = 2 * output_npz["g_theta"]
                 row_dictionary["final_squared_grad_norm"] = row_dictionary["squared_grad_norms"][-1]
 
+        if "alpha" in output_npz.keys():
+            row_dictionary["alphas"] = output_npz["alpha"]
+
+        if "pure_accepted" in output_npz.keys():
+            row_dictionary["pure_accepted"] = output_npz["pure_accepted"]
+
         row_dictionaries.append(row_dictionary)
 
     return pd.DataFrame(row_dictionaries)
