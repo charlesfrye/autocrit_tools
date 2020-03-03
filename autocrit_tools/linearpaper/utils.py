@@ -26,6 +26,13 @@ def filter_to_candidate_cps(cp_df, network,
                                          for candidate_theta in candidate_cp_df.candidate_theta]
 
     if return_failures:
+        failure_cp_df["candidate_theta"] = [
+            row.thetas[-1]
+            for _, row in failure_cp_df.iterrows()]
+        failure_cp_df["candidate_loss"] = [
+            network.loss(candidate_theta)
+            for candidate_theta in failure_cp_df.candidate_theta]
+
         return candidate_cp_df, failure_cp_df
     else:
         return candidate_cp_df
